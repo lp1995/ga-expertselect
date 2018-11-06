@@ -7,7 +7,7 @@ package liupeng.ga.cn.expertselect;
  * @createDate 2016-06-22 16:32
  */
 public class Population {
-    Individual[] individuals;
+    private Individual[] individuals;
 
     /**
      * 创建一个种群
@@ -20,7 +20,7 @@ public class Population {
         // 初始化种群
         if (initialise) {
             for (int i = 0; i < size(); i++) {
-                Individual newIndividual = new Individual();
+                Individual newIndividual = new Individual(100);
                 newIndividual.generateIndividual();
                 saveIndividual(i, newIndividual);
             }
@@ -53,4 +53,5 @@ public class Population {
     public void saveIndividual(int index, Individual indiv) {
         individuals[index] = indiv;
     }
+
 }

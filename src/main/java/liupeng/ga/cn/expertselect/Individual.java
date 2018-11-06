@@ -9,12 +9,17 @@ package liupeng.ga.cn.expertselect;
 public class Individual {
 
 	//基因的长度，也就是候选专家的个数
-    static int defaultGeneLength = 100;
+    private int length;
     //基因序列
-    private byte[] genes = new byte[defaultGeneLength];
+    private byte[] genes;
     // 个体的适应度
-    private int fitness = 0;
+    private double fitness = 0;
 
+    public Individual(int length){
+    	this.length = length;
+    	this.genes = new byte[length];
+    }
+    
     // 创建一个随机的 基因个体
     public void generateIndividual() {
         for (int i = 0; i < size(); i++) {
@@ -23,8 +28,12 @@ public class Individual {
         }
     }
 
-    public static void setDefaultGeneLength(int length) {
-        defaultGeneLength = length;
+    public int getLength(){
+    	return length;
+    }
+    
+    public void setLength(int len) {
+    	this.length = len;
     }
 
     public byte getGene(int index) {
@@ -37,12 +46,12 @@ public class Individual {
     }
 
     public int size() {
-        return genes.length;
+        return length;
     }
 
-    public int getFitness() {
+    public double getFitness() {
         if (fitness == 0) {
-            fitness = FitnessCalc.getFitness(this);
+            fitness = FitnessCalc.calcFitness(this);
         }
         return fitness;
     }
@@ -55,4 +64,11 @@ public class Individual {
         }
         return sb.toString();
     }
+    
+    public static void main(String ...arg){
+    	Individual indi = new Individual(10);
+    	indi.generateIndividual();
+    	System.out.println(indi.toString());
+    }
+
 }

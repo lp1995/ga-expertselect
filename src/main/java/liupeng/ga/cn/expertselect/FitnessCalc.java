@@ -1,5 +1,7 @@
 package liupeng.ga.cn.expertselect;
 
+import java.util.ArrayList;
+
 /**
  * 计算适应度
  *
@@ -10,7 +12,7 @@ public class FitnessCalc {
 	
     private static byte[] solution = new byte[100];
     //用于存放对应专家的信息
-    private static ExpertInfo[] expertInfo = new ExpertInfo[100];
+    private static ArrayList<ExpertInfo> expertInfos ;
 
     /**
      * 设置候选结果为一个 byte array
@@ -52,6 +54,17 @@ public class FitnessCalc {
         }
         return fitness;
     }
+    
+    
+    public static double calcFitness(Individual indi){
+    	double fitness = 0;
+    	for(int i=0;i<indi.getLength();i++){
+    		if(indi.getGene(i)==1){
+    			fitness = fitness + expertInfos.get(i).getScore();
+    		}
+    	}
+    	return fitness;
+    }
 
     //最优的适应值，即为基因序列的长度
     public static int getMaxFitness() {
@@ -59,11 +72,23 @@ public class FitnessCalc {
         return maxFitness;
     }
 
-	public static ExpertInfo[] getExpertInfo() {
-		return expertInfo;
+	public static ArrayList<ExpertInfo> getExpertInfos() {
+		return expertInfos;
 	}
 
-	public static void setExpertInfo(ExpertInfo[] expertInfo) {
-		FitnessCalc.expertInfo = expertInfo;
+	public static void setExpertInfos(ArrayList<ExpertInfo> expertInfos) {
+		FitnessCalc.expertInfos = expertInfos;
+	}
+	
+	public static void main(String ...arg){
+		ArrayList<ExpertInfo> experts = ExpertInfo.generateExperts(10);
+		ExpertInfo.printFitness(experts);
+		FitnessCalc.setExpertInfos(experts);
+		Individual indi = new Individual(10);
+		indi.generateIndividual();
+		System.out.println(indi.toString());
+		
+		double a = FitnessCalc.calcFitness(indi);
+		System.out.println(a);
 	}
 }
