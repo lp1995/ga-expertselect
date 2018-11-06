@@ -71,5 +71,7 @@ public class ExpertInfo implements Serializable{
 		ExpertInfo.printFitness(experts);
 	}
 	
+
+	
 	//序列化
 } 
