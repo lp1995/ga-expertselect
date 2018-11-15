@@ -1,5 +1,4 @@
 package liupeng.ga.cn.expertselect;
-
 /**
  * 种群
  *
@@ -15,22 +14,16 @@ public class Population {
      * @param populationSize 种群初始规模
      * @param initialise     是否初始化
      */
-    public Population(int populationSize, boolean initialise) {
+    public Population(int populationSize) {
         individuals = new Individual[populationSize];
-        // 初始化种群
-        if (initialise) {
-            for (int i = 0; i < size(); i++) {
-                Individual newIndividual = new Individual(100);
-                newIndividual.generateIndividual();
-                saveIndividual(i, newIndividual);
-            }
-        }
     }
 
     public Individual getIndividual(int index) {
         return individuals[index];
     }
 
+    
+    
     /**
      * 获取种群中最优个体
      *
@@ -52,6 +45,13 @@ public class Population {
 
     public void saveIndividual(int index, Individual indiv) {
         individuals[index] = indiv;
+    }
+    
+    public static void main(String ...arg){
+    	for (int i=0;i<20;i++){
+    		System.out.println((int)(Math.random()*10));
+    	}
+    	
     }
 
 }

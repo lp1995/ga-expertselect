@@ -14,8 +14,31 @@ public class GAlgorithm {
     // 淘汰数组的大小
     private  final int tournamentSize = 10;
     // 精英主义
-    private  final boolean elitism = true;
-
+    private  final boolean elitism = true;  
+    //种群个数
+    private final int popSize = 100;
+    //个体长度or候选专家长度
+    private final int indiSize = 200;
+    //遴选专家个数
+    private final int selectNumber = 20;
+    
+    /**
+     * 初始化种群
+     *
+     */
+    public Population initPop(){
+    	Population pop = new Population(popSize);
+    	for( int i=0 ; i<popSize ; i++ ){
+    		Individual newIndi = new Individual(this.indiSize);
+    		for( int j=0 ; j<selectNumber ; j++ ){
+    			int cIndex = (int)(Math.random()*this.indiSize)-1;
+    			cIndex= cIndex == -1 ? 0 : cIndex;
+    			newIndi.setGene(cIndex, (byte)(1));
+    		}
+    		pop.saveIndividual(i,newIndi);
+    	}
+    	return pop;
+    }
     /**
      * 进化一个种群
      *
@@ -24,7 +47,7 @@ public class GAlgorithm {
      */
     public Population evolvePopulation(Population pop) {
         // 存放新一代的种群
-        Population newPopulation = new Population(pop.size(), false);
+        Population newPopulation = initPop();
 
         // 精英主义策略
         if (elitism) {
